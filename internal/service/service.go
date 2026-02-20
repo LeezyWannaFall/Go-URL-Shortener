@@ -1,8 +1,8 @@
 package service
 
 import (
+	// "Go-URL-Shortener/internal/model"
 	"context"
-	"Go-URL-Shortener/internal/model"
 )
 
 type UrlService struct {
@@ -13,10 +13,10 @@ func NewUrlService(repo RepositoryInterface) *UrlService {
 	return &UrlService{repo: repo}
 }
 
-func (s *UrlService) AddShortUrl(ctx context.Context, fullUrl string) (string, error) {
-
+func (s *UrlService) AddShortUrl(ctx context.Context, full string) (string, error) {
+	// todo generate short link
 }
 
-func (s *UrlService) GetFullUrl(ctx context.Context, shortUrl string) (string, error) {
-
+func (s *UrlService) GetFullUrl(ctx context.Context, short string) (string, error) {
+	// todo get full url
 }

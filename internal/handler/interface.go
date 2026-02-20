@@ -5,6 +5,6 @@ import (
 )
 
 type ServiceInterface interface {
-	AddShortUrl(ctx context.Context, FullUrl string) (string, error)
-	GetFullUrl(ctx context.Context, ShortUrl string) (string, error)
+	AddShortUrl(ctx context.Context, fullUrl string) (string, error)
+	GetFullUrl(ctx context.Context, shortUrl string) (string, error)
 }

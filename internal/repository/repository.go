@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"Go-URL-Shortener/internal/model"
 	"context"
 	"database/sql"
 )
@@ -13,10 +14,14 @@ func NewDataBase(db *sql.DB) *PostgresStorage {
 	return &PostgresStorage{db: db}
 }
 
-func (p *PostgresStorage) AddShortUrl(ctx context.Context, fullUrl string) (string, error) {
+func (r *PostgresStorage) Save(ctx context.Context,url model.URL) error {
 
 }
 
-func (p *PostgresStorage) GetFullUrl(ctx context.Context, shortUrl string) (string, error) {
+func (r *PostgresStorage) GetByShortUrl(ctx context.Context, short string) (model.URL, error) {
+
+}
+
+func (r *PostgresStorage) GetByFullUrl(ctx context.Context, full string) (model.URL, error) {
 	
 }

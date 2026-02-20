@@ -18,7 +18,7 @@ func (h *UrlHandler) AddShortUrl(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&url)
 	if err != nil {
-		http.Error(w, "invalid bodyy", http.StatusBadRequest)
+		http.Error(w, "invalid body", http.StatusBadRequest)
 	}
 
 	shrtUrl, err := h.service.AddShortUrl(r.Context(), url)

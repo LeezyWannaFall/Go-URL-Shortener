@@ -1,8 +1,12 @@
 package service
 
-import "context"
+import (
+	"Go-URL-Shortener/internal/model"
+	"context"
+)
 
 type RepositoryInterface interface {
-	AddShortUrl(ctx context.Context, FullUrl string) (string, error)
-	GetFullUrl(ctx context.Context, ShortUrl string) (string, error)
+	Save(ctx context.Context,url model.URL) error
+	GetByShortUrl(ctx context.Context, short string) (model.URL, error)
+	GetByFullUrl(ctx context.Context, full string) (model.URL, error)
 }
