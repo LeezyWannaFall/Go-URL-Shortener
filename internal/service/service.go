@@ -13,10 +13,10 @@ func NewUrlService(repo RepositoryInterface) *UrlService {
 	return &UrlService{repo: repo}
 }
 
-func (s *UrlService) AddShortUrl(ctx context.Context, fullUrl *model.URL) (string, error) {
+func (s *UrlService) AddShortUrl(ctx context.Context, fullUrl string) (string, error) {
 
 }
 
-func (s *UrlService) GetFullUrl(ctx context.Context, shortUrl *model.URL) (string, error) {
+func (s *UrlService) GetFullUrl(ctx context.Context, shortUrl string) (string, error) {
 
 }

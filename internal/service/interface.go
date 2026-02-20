@@ -1,8 +1,6 @@
 package service
 
-import (
-	"context"
-)
+import "context"
 
 type RepositoryInterface interface {
 	AddShortUrl(ctx context.Context, FullUrl string) (string, error)
