@@ -1,8 +1,11 @@
 package handler
 
 import (
+	"Go-URL-Shortener/internal/model"
 	"encoding/json"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
 )
 
 type UrlHandler struct {
@@ -14,16 +17,18 @@ func NewHandler(service ServiceInterface) *UrlHandler {
 }
 
 func (h *UrlHandler) AddShortUrl(w http.ResponseWriter, r *http.Request) {
-	var url string
+	var req model.URL
 
-	err := json.NewDecoder(r.Body).Decode(&url)
+	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		http.Error(w, "invalid body", http.StatusBadRequest)
+		return
 	}
 
-	shrtUrl, err := h.service.AddShortUrl(r.Context(), url)
+	shrtUrl, err := h.service.AddShortUrl(r.Context(), req.Full)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -32,19 +37,33 @@ func (h *UrlHandler) AddShortUrl(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UrlHandler) GetFullUrl(w http.ResponseWriter, r * http.Request) {
-	var url string
+	var req model.URL
 
-	err := json.NewDecoder(r.Body).Decode(&url)
+	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
-		http.Error(w, "invalid bodyy", http.StatusBadRequest)
+		http.Error(w, "invalid body", http.StatusBadRequest)
+		return
 	}
 
-	fullUrl, err := h.service.GetFullUrl(r.Context(), url)
+	fullUrl, err := h.service.GetFullUrl(r.Context(), req.Short)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(fullUrl)
+}
+
+func (h *UrlHandler) Redirect(w http.ResponseWriter, r *http.Request) {
+	short := chi.URLParam(r, "short")
+
+	fullUrl, err := h.service.GetFullUrl(r.Context(), short)
+	if err != nil {
+		http.Error(w, "URL not found", http.StatusNotFound)
+		return
+	}
+
+	http.Redirect(w, r, fullUrl, http.StatusFound)
 }

@@ -3,6 +3,7 @@ package service
 import (
 	"Go-URL-Shortener/internal/model"
 	"context"
+	"database/sql"
 	"errors"
 )
 
@@ -20,17 +21,17 @@ func (s *UrlService) AddShortUrl(ctx context.Context, full string) (string, erro
 	}
 
 	url, err := s.repo.GetByFullUrl(ctx, full)
-	if err == nil && url.Short != "" {
+	if err == nil && url != nil && url.Short != "" {
 		return url.Short, nil
 	}
 
-	if err != nil {
-		return "", errors.New("repository error")
+	if err != nil && !errors.Is(err, sql.ErrNoRows) {
+		return "", errors.New("repository error: sql.ErrNoRows")
 	}
 
 	for i := 0; i < 5; i++ {
 		newUrl := model.URL{Short: ShortLinkGenerator(), Full: full}
-		errSave := s.repo.Save(ctx, newUrl)
+		errSave := s.repo.Save(ctx, &newUrl)
 		if errSave == nil { 
 			return newUrl.Short, nil
 		}
