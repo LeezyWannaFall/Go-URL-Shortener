@@ -37,15 +37,7 @@ func (h *UrlHandler) AddShortUrl(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UrlHandler) GetFullUrl(w http.ResponseWriter, r * http.Request) {
-	var req model.URL
-
-	err := json.NewDecoder(r.Body).Decode(&req)
-	if err != nil {
-		http.Error(w, "invalid body", http.StatusBadRequest)
-		return
-	}
-
-	fullUrl, err := h.service.GetFullUrl(r.Context(), req.Short)
+	fullUrl, err := h.service.GetFullUrl(r.Context(), chi.URLParam(r, "short"))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
