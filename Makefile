@@ -1,4 +1,4 @@
-.PHONY: build_postgres build_memory down_memory down_postgres create_table delete_table check
+.PHONY: build_postgres build_memory down_memory down_postgres create_table delete_table check check_table
 
 build_postgres:
 	sudo docker compose --profile with_db up -d --build
@@ -20,3 +20,6 @@ delete_table:
 
 check:
 	sudo docker ps -a
+
+check_table:
+	sudo docker exec -i go-url-shortener-db-1 psql -U url-shortener -d urldb < migrations/0001_check_table.sql
