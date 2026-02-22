@@ -1,4 +1,4 @@
-module Go-URL-Shortener
+module github.com/LeezyWannaFall/Go-URL-Shortener
 
 go 1.25.7
 

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"Go-URL-Shortener/internal/model"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/model"
 	"context"
 	"database/sql"
 	"errors"

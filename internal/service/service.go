@@ -1,17 +1,16 @@
 package service
 
 import (
-	"Go-URL-Shortener/internal/model"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/model"
 	"context"
-	"database/sql"
 	"errors"
 )
 
 type UrlService struct {
-	repo RepositoryInterface
+	repo Repository
 }
 
-func NewUrlService(repo RepositoryInterface) *UrlService {
+func NewUrlService(repo Repository) *UrlService {
 	return &UrlService{repo: repo}
 }
 
@@ -20,21 +19,20 @@ func (s *UrlService) AddShortUrl(ctx context.Context, full string) (string, erro
 		return "", errors.New("invalid URL")
 	}
 
+	maxAttempts := 5
 	url, err := s.repo.GetByFullUrl(ctx, full)
-	if err == nil && url != nil && url.Short != "" {
-		return url.Short, nil
-	}
+	
+	if err != nil {
+		for i := 0; i < maxAttempts; i++ {
+			generatedUrl := model.URL{Short: GenerateShortLink(), Full: full}
+			errSave := s.repo.Save(ctx, &generatedUrl)
 
-	if err != nil && !errors.Is(err, sql.ErrNoRows) {
-		return "", errors.New("repository error: sql.ErrNoRows")
-	}
-
-	for i := 0; i < 5; i++ {
-		newUrl := model.URL{Short: ShortLinkGenerator(), Full: full}
-		errSave := s.repo.Save(ctx, &newUrl)
-		if errSave == nil { 
-			return newUrl.Short, nil
+			if errSave == nil { 
+				return generatedUrl.Short, nil
+			}
 		}
+	} else {
+		return url.Short, nil
 	}
 
 	return "", errors.New("failed to generate unique short link after several attempts")

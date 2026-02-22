@@ -5,28 +5,14 @@ import (
 	"net/url"
 )
 
-const (
-	number = "0123456789"
-	lower = "abcdefghijklmnopqrstuvwxyz"
-	upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	all = number + lower + upper
-)
+const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
-func ShortLinkGenerator() string {
+func GenerateShortLink() string {
 	result := make([]byte, 10)
 
-	result[0] = number[rand.IntN(len(number))]
-	result[1] = lower[rand.IntN(len(lower))]
-	result[2] = upper[rand.IntN(len(upper))]
-	result[3] = '_'
-
-	for i := 4; i < 10; i++ {
-		result[i] = all[rand.IntN(len(all))]
+	for i := 0; i < 10; i++ {
+		result[i] = alphabet[rand.IntN(len(alphabet))]
 	}
-
-	rand.Shuffle(len(result), func(i, j int) {
-		result[i], result[j] = result[j], result[i]
-	})
  	
 	return string(result)
 }

@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"Go-URL-Shortener/internal/model"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/model"
 	"encoding/json"
 	"net/http"
 
@@ -9,10 +9,10 @@ import (
 )
 
 type UrlHandler struct {
-	service ServiceInterface
+	service Service
 }
 
-func NewHandler(service ServiceInterface) *UrlHandler {
+func NewHandler(service Service) *UrlHandler {
 	return &UrlHandler{service: service}
 }
 

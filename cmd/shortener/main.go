@@ -1,10 +1,10 @@
 package main
 
 import (
-	"Go-URL-Shortener/internal/handler"
-	"Go-URL-Shortener/internal/repository"
-	"Go-URL-Shortener/internal/service"
-	"Go-URL-Shortener/internal/config"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/handler"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/repository"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/service"
+	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/config"
 
 	"database/sql"
 	"fmt"

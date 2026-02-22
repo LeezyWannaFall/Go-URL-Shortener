@@ -9,6 +9,4 @@ COPY . .
 
 RUN go build -o app ./cmd/shortener/main.go
 
-EXPOSE 8080
-
 CMD ["./app"]
