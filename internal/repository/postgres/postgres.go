@@ -1,4 +1,4 @@
-package repository
+package postgres
 
 import (
 	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/model"

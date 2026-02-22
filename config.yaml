@@ -3,9 +3,7 @@ server:
   port: 8080
 
 storage:
+  type: "postgres"
   postgres:
     host: "db"
     port: 5432
-    database: urldb
-    user: url-shortener
-    password: "123456789"

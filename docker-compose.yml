@@ -1,21 +1,25 @@
 services:
-  db:
-    image: postgres:15
-    container_name: shortener_db
-    environment:
-      POSTGRES_USER: url-shortener
-      POSTGRES_PASSWORD: 123456789
-      POSTGRES_DB: urldb
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
   app:
     build: .
-    container_name: shortener_app
     ports:
       - "8080:8080"
+    env_file:
+      - .env
+    profiles:
+      - in_memory
+      - with_db
     depends_on:
-      - db
+      db:
+        condition: service_started
+        required: false
+  db:
+    image: postgres:15
+    env_file:
+      - .env
+    profiles:
+      - with_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
 volumes:
   db_data:
