@@ -4,7 +4,6 @@ import (
 	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/model"
 	"context"
 	"database/sql"
-	"errors"
 )
 
 type PostgresStorage struct {
@@ -20,7 +19,7 @@ func (r *PostgresStorage) Save(ctx context.Context, url *model.URL) error {
 
 	_, err := r.db.ExecContext(ctx, query, url.Full, url.Short)
 	if err != nil {
-		return errors.New("not found")
+		return err
 	}
 
 	return nil 

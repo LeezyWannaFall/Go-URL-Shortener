@@ -21,7 +21,7 @@ func (s *UrlService) AddShortUrl(ctx context.Context, full string) (string, erro
 
 	maxAttempts := 5
 	url, err := s.repo.GetByFullUrl(ctx, full)
-	
+
 	if err != nil {
 		for i := 0; i < maxAttempts; i++ {
 			generatedUrl := model.URL{Short: GenerateShortLink(), Full: full}
@@ -42,10 +42,6 @@ func (s *UrlService) GetFullUrl(ctx context.Context, short string) (string, erro
 	url, err := s.repo.GetByShortUrl(ctx, short)
 	if err != nil {
 		return "", err
-	}
-
-	if url.Full == "" {
-		return "", errors.New("Full link not found")
 	}
 
 	return url.Full, nil
