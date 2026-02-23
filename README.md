@@ -58,21 +58,7 @@ You can manage the application lifecycle using the provided Makefile.
 
 **1. Start the application:**
 ```bash
-make service_start
-```
-**2. You can create, delete and check postgres database with commands:**
-```bash
-make create_table
-```
-```bash
-make delete_table
-```
-```bash
-make check_table
-```
-**3. Stop the application and remove containers:**
-```bash
-make down_service
+make run
 ```
 
 ## API Documentation
@@ -90,7 +76,7 @@ Converts a full URL into a short alias.
         "full": "https://github.com/leezywannafall"
     }
     ```
-**2.Get Original URL and Redirect**
+**2. Get Original URL and Redirect**
 
 Get original URL and redirects the client to the original URL.
 - **Endpoint:** ```GET /{short}```

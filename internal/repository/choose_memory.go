@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"os"
-
 	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/config"
 	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/repository/memory"
 	"github.com/LeezyWannaFall/Go-URL-Shortener/internal/repository/postgres"
@@ -14,7 +12,7 @@ import (
 )
 
 func ChooseMemory(cfg *config.Config) service.Repository {
-	switch os.Getenv("STORAGE_TYPE") {
+	switch cfg.Storage.Type {
 	case "postgres":
 		connStr := fmt.Sprintf(
 			"postgres://%s:%s@%s:%d/%s?sslmode=disable",

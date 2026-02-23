@@ -3,7 +3,12 @@ server:
   port: 8080
 
 storage:
-  type: "postgres"
+  type: "postgres" # "postgres" - postgres; "memory" - in-memory
   postgres:
     host: "db"
+    database: "urldb"
+    user: "url-shortener"
+    password: "123456789"
     port: 5432
+  in_memory:
+    enabled: true

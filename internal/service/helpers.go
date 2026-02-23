@@ -23,7 +23,7 @@ func isValidUrl(parseUrl string) bool {
 		return false
 	}
 
-	if u.Scheme == "" || u.Host == "" {
+	if u.Scheme != "http" && u.Scheme != "https" || u.Host == "" {
 		return false
 	}
 
