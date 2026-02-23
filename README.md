@@ -39,6 +39,30 @@ To run this project, you need to have the following installed on your machine:
 - **Make (Optional, but recommended for ease of use)**
 - **Go (For tests)**
 
+## Getting Started
+You can manage the application lifecycle using the provided Makefile.
+
+**1. Start the application:**
+```bash
+make run
+```
+**2. Send a request to generate short link:**
+```bash
+curl -X POST http://localhost:8080/shorten -d '{"full": "https://fintech.ozon.ru"}'
+```
+**3. In response you will receive a short link:**
+```bash
+"eTpEC4zX_j"
+```
+**4. Send a Request to receive a Original URL:**
+```bash
+curl -X GET http://localhost:8080/eTpEC4zX_j
+```
+**5. In response you will receive a Original URL:**
+```bash
+<a href="https://fintech.ozon.ru">Found</a>.
+```
+
 ## Configuration
 The application is configured using a ```config.yaml``` 
 
@@ -58,15 +82,6 @@ storage:
     port: 5432
   in_memory:
     enabled: true
-```
-
-
-## Getting Started
-You can manage the application lifecycle using the provided Makefile.
-
-**1. Start the application:**
-```bash
-make run
 ```
 
 ## API Documentation
