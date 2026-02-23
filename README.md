@@ -20,6 +20,7 @@ Go-URL-Shortener
 │   └── shortener
 │       └── main.go              # Application entry point
 ├── config.yaml                  # Application configuration (ports, db credentials)
+├── .env                         # Memory change file
 ├── docker-compose.yml           # Infrastructure definition
 ├── Dockerfile                   # Application container build instructions
 ├── internal                     # Private application and business logic
