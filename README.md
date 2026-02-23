@@ -41,7 +41,7 @@ To run this project, you need to have the following installed on your machine:
 - **Go (For tests)**
 
 ## Configuration
-The application is configured using a combination of ```config.yaml``` and environment variables.
+The application is configured using a ```config.yaml``` 
 
 Edit a ```config.yaml``` file in the root directory to define the storage type and config your server/db settings:
 ```yaml
