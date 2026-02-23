@@ -36,18 +36,6 @@ func (h *UrlHandler) AddShortUrl(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(shrtUrl)
 }
 
-func (h *UrlHandler) GetFullUrl(w http.ResponseWriter, r * http.Request) {
-	fullUrl, err := h.service.GetFullUrl(r.Context(), chi.URLParam(r, "short"))
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(fullUrl)
-}
-
 func (h *UrlHandler) Redirect(w http.ResponseWriter, r *http.Request) {
 	short := chi.URLParam(r, "short")
 
