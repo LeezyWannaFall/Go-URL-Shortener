@@ -87,7 +87,7 @@ Converts a full URL into a short alias.
 - **Request Body:**
     ```json
     {
-        "url": "[https://example.com/very/long/path](https://example.com/very/long/path)"
+        "full": "https://github.com/leezywannafall"
     }
     ```
 **2.Get Original URL and Redirect**
