@@ -38,20 +38,29 @@ To run this project, you need to have the following installed on your machine:
 - **Docker**
 - **Docker Compose**
 - **Make (Optional, but recommended for ease of use)**
+- **Go (For tests)**
 
 ## Configuration
 The application is configured using a combination of ```config.yaml``` and environment variables.
 
-Edit a ```.env``` file in the root directory to define the storage type and database secrets:
-```
-# Choose storage: "postgres" or "memory"
-STORAGE_TYPE=postgres
+Edit a ```config.yaml``` file in the root directory to define the storage type and config your server/db settings:
+```yaml
+server:
+  host: "0.0.0.0"
+  port: 8080
 
-# PostgreSQL Configuration
-POSTGRES_USER=url-shortener
-POSTGRES_PASSWORD=your_secure_password
-POSTGRES_DB=urldb
+storage:
+  type: "postgres" # "postgres" - postgres; "memory" - in-memory
+  postgres:
+    host: "db"
+    database: "urldb"
+    user: "url-shortener"
+    password: "123456789"
+    port: 5432
+  in_memory:
+    enabled: true
 ```
+
 
 ## Getting Started
 You can manage the application lifecycle using the provided Makefile.
@@ -81,12 +90,16 @@ Converts a full URL into a short alias.
 Get original URL and redirects the client to the original URL.
 - **Endpoint:** ```GET /{short}```
 
-- **Response:** ```302 Found``` (Redirects to the original URL)
+- **Response:** 
+    ```bash
+    <a href="https://github.com/leezywannafall">Found</a>.
+    ```
+- **Redirect:** To redirect to the original link, type in your browser ```localhost:8080/{short}```
 
 ## Testing
 The project utilizes standard Go table-driven tests with mocked dependencies to ensure reliability.
 
 To run all unit tests across the project:
 ```bash
-go test -v ./... 
+make test
 ```
