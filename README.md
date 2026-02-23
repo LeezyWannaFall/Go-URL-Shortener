@@ -91,6 +91,7 @@ Converts a full URL into a short alias.
     }
     ```
 **2.Get Original URL and Redirect**
+
 Get original URL and redirects the client to the original URL.
 - **Endpoint:** ```GET /{short}```
 
