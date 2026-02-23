@@ -1,16 +1,10 @@
-.PHONY: build_postgres build_memory down_memory down_postgres create_table delete_table check check_table
+.PHONY: start_service down_service create_table delete_table check check_table
 
-build_postgres:
-	sudo docker compose --profile with_db up -d --build
+start_service:
+	sudo docker compose up -d --build
 
-build_memory:
-	sudo docker compose --profile in_memory up -d --build
-
-down_memory:
-	sudo docker compose --profile in_memory down
-
-down_postgres:
-	sudo docker compose --profile with_db down
+down_service:
+	sudo docker compose down
 
 create_table:
 	sudo docker exec -i go-url-shortener-db-1 psql -U url-shortener -d urldb < migrations/0001_create_table.sql

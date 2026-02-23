@@ -3,23 +3,34 @@ services:
     build: .
     ports:
       - "8080:8080"
-    env_file:
+    env_file: 
       - .env
-    profiles:
-      - in_memory
-      - with_db
     depends_on:
       db:
-        condition: service_started
-        required: false
+        condition: service_healthy
+      migrations:
+        condition: service_completed_successfully
   db:
     image: postgres:15
-    env_file:
-      - .env
-    profiles:
-      - with_db
-    volumes:
-      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=url-shortener
+      - POSTGRES_PASSWORD=123456789
+      - POSTGRES_DB=urldb
 
-volumes:
-  db_data:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U url-shortener -d urldb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    image: postgres:15
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PGPASSWORD=123456789
+    command: >
+        psql -h db -U url-shortener -d urldb -f /migrations/0001_create_table.sql
+    volumes:
+      - ./migrations:/migrations
